@@ -6,7 +6,11 @@ import router from './router'
 import store from './store'
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
-Vue.http = Vue.prototype.$http = axios
+const instance = axios.create({
+  baseURL: '//localhost:3000/api/',
+  timeout: 1000
+})
+Vue.http = Vue.prototype.$http = instance
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

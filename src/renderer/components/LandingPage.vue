@@ -1,23 +1,20 @@
 <template>
   <div id="wrapper">
-    <img id="logo" src="~@/assets/logo.png" alt="electron-vue">
+    <!-- <img id="logo" src="~@/assets/logo.png" alt="electron-vue"> -->
     <main>
       <div class="left-side">
         <span class="title">
-          Welcome to your new project!
+          Welcome to vinyl-api
         </span>
         <system-information></system-information>
       </div>
 
       <div class="right-side">
         <div class="doc">
-          <div class="title">Getting Started</div>
+          <div class="title">Getting started</div>
           <p>
-            electron-vue comes packed with detailed documentation that covers everything from
-            internal configurations, using the project structure, building your application,
-            and so much more.
+            baseURL - {{getBaseURL}}
           </p>
-          <button @click="open('https://simulatedgreg.gitbooks.io/electron-vue/content/')">Read the Docs</button><br><br>
         </div>
         <div class="doc">
           <div class="title alt">Other Documentation</div>
@@ -35,6 +32,21 @@
   export default {
     name: 'landing-page',
     components: { SystemInformation },
+    computed: {
+      getBaseURL () {
+        console.log('axios instance:', this.$http)
+        return this.$http.baseURL
+      }
+    },
+    mounted () {
+      console.log('Root mounted, perform api check.')
+      this.$http.get('')
+        .then(result => {
+          console.log('result', result)
+          // Move this to store action
+          // Set connection status based on return.
+        })
+    },
     methods: {
       open (link) {
         this.$electron.shell.openExternal(link)
